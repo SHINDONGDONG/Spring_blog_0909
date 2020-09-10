@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-	@GetMapping("/user/joinForm")
-	public String joinForm() {
-		return "user/joinForm";
+	@GetMapping("/auth/joinForm") //auth/** 이하의 주소는 모두허용 해줄예정
+	public String joinForm() {    // 그냥주소가 "/" 이면 index.jsp허용
+		return "user/joinForm";   //static 이하에 있는 css,js,image 허용
 	}
 	
-	@GetMapping("/user/loginForm")
+	@GetMapping("/auth/loginForm")
 	public String loginForm() {
 		return "user/loginForm";
 	}
