@@ -40,7 +40,6 @@ public class Board {
 	@Lob//大容量
 	private String content;
 	
-	@ColumnDefault("0")
 	private int count; //カウント
 	
 	@ManyToOne //user一人が沢山の投稿可能
