@@ -35,10 +35,14 @@ public class UserService {
 		User user = uesrRepository.findById(requestUser.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("수정할 사용자를 찾지 못하였습니다.");
 		});
-		String rawPassword = requestUser.getPassword();
-		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-		user.setPassword(encPassword);
-		user.setEmail(requestUser.getEmail());
+
+		//oauth 가 null이거나 "" 일때만 수정이 가능함.
+		if(user.getOauth() ==null || user.getOauth().equals("")) {
+			String rawPassword = requestUser.getPassword();
+			String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+			user.setPassword(encPassword);
+			user.setEmail(requestUser.getEmail());
+		}
 		//회원수정 함수종료시 서비스 종료(트랜잭션 종료) = commit 자동
 	}
 	/*
@@ -47,6 +51,14 @@ public class UserService {
 	 * uesrRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword(
 	 * )); }
 	 */
+	
+	@Transactional(readOnly = true)
+	public User findUser(String username) {
+		User user = uesrRepository.findByUsername(username).orElseGet(()->{
+			return new User();
+		});
+		return user;
+	}
 	
 	
 }
