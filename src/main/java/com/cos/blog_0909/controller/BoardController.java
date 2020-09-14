@@ -11,29 +11,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cos.blog_0909.service.BoardService;
 
-
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
-	@GetMapping({"","/"})
-	public String index(Model model,@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) { //컨트롤러에서는 세션을 어떻게 찾는지??
-		model.addAttribute("board",boardService.boardList(pageable));
+
+	@GetMapping({ "", "/" })
+	public String index(Model model,
+			@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) { // 컨트롤러에서는 세션을
+																											// 어떻게 찾는지??
+		model.addAttribute("board", boardService.boardList(pageable));
 		return "index";
 	}
 
 	@GetMapping("/board/{id}")
-	public String findById(@PathVariable int id,Model model) {
-		model.addAttribute("board",boardService.boardDetail(id));
+	public String findById(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.boardDetail(id));
 		return "board/detail";
 	}
-	
-	
+
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
 	}
-	
+
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.boardDetail(id));
+		return "board/updateForm";
+	}
+
 }

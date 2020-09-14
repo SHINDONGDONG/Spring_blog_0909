@@ -7,7 +7,6 @@
 	<sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 
-
 <!DOCTYPE html>
 <head>
   <title>Bootstrap Example</title>

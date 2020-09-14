@@ -12,7 +12,9 @@
     <label for="password">password:</label>
     <input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
   </div>
+  
   <button id="btn-login" class="btn btn-primary">로그인</button>
+  <a href="https://kauth.kakao.com/oauth/authorize?client_id=9f92a7f5b04cf67085fa4c503d49090e&redirect_uri=http://localhost:8181/auth/kakao/callback&response_type=code"  ><img height="38px" src="/image/kakao_login_button.png"></a>
 </form>
 </div>
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
