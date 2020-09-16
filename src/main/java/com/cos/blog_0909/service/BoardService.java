@@ -1,20 +1,17 @@
 package com.cos.blog_0909.service;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog_0909.model.Board;
-import com.cos.blog_0909.model.RoleType;
+import com.cos.blog_0909.model.Reply;
 import com.cos.blog_0909.model.User;
 import com.cos.blog_0909.repository.BoardRepository;
-import com.cos.blog_0909.repository.UserRepository;
+import com.cos.blog_0909.repository.ReplyRepository;
 
 @Service
 public class BoardService {
@@ -22,6 +19,8 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Transactional
 	public void save(Board board, User user) { //title,content
@@ -59,5 +58,15 @@ public class BoardService {
 	@Transactional
 	public void delete(int id) {
 		boardRepository.deleteById(id);
+	}
+
+	@Transactional
+	public void replySave(User user, int boardId, Reply requestReply) {
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("해당 댓글을 찾지 못하여씁니당");
+		});
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		replyRepository.save(requestReply);
 	}
 }

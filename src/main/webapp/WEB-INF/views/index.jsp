@@ -4,7 +4,11 @@
 
 <div class="container">
 
-
+<c:choose>
+<c:when test="${empty board.content}">
+	<h1 class="pagination justify-content-center">첫번째 게시글을 작성해주세요.</h1>
+</c:when>
+<c:otherwise>
 <c:forEach var="board"  items="${board.content}">
 <div class="card m-2">
   <div class="card-body">
@@ -13,7 +17,11 @@
   </div>
 </div>
 </c:forEach>
+</c:otherwise>
+</c:choose>
 <ul class="pagination justify-content-center">
+
+
 	<c:choose>
 		<c:when test="${board.first}">
 		  <li class="page-item disabled" ><a class="page-link" href="?page=${board.number}">Previous</a></li>
@@ -31,6 +39,7 @@
 		  <li class="page-item"><a class="page-link" href="?page=${board.number+1}">Next</a></li>
 		</c:otherwise>
 	</c:choose>
+
 
 </ul>
 

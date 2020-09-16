@@ -1,6 +1,5 @@
 package com.cos.blog_0909.model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -14,9 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,8 +49,10 @@ public class Board {
 	
 	//FKではないのでDBにCOLUMNを作成しないでねって //FKではない場合LAZE戦略になるのでEAGERに変更しよう
 	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER)//FKではないことを知らせるReply.classのBOARD 変数をMappedByに代入
+	@JsonIgnoreProperties("{board}")
+	@OrderBy("id DESC")
 	private List<Reply> reply; //1つの投稿に沢山のコメントが書ける
-	
+	 
 	@CreationTimestamp
 	private Timestamp createDate;
 	
