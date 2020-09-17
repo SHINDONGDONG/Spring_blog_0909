@@ -19,8 +19,7 @@ public class BoardController {
 
 	@GetMapping({ "", "/" })
 	public String index(Model model,
-			@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) { // 컨트롤러에서는 세션을
-																											// 어떻게 찾는지??
+			@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) { // 컨트롤러에서는 세션을// 어떻게 찾는지??
 		model.addAttribute("board", boardService.boardList(pageable));
 		return "index";
 	}

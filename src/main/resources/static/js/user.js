@@ -24,9 +24,13 @@ let index= {
         contentType:"application/json; charset=utf-8", //body타입이 어떤타입인지
         dataType:"json" //요청을 서버로해서 응답이왔을때 기본적으로 String (생긴게 json이라면) =>javascript오브젝트로 변경해준다.
         }).done(function(resp){
-            console.log(resp);
+        	if(resp.status === 500){ 
+			alert('회원가입에 실패하였습니다');        		
+        	}else{
             alert('회원가입이 완료 되었습니다.');
             location.href="/";
+        	}
+        
         }).fail(function(error){
             alert(JSON.stringify(error));
         }); //ajax통신을 통해서 3개의 데이터를 json으로 변경하여 insert요청을 할것임.

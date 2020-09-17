@@ -3,6 +3,7 @@ package com.cos.blog_0909.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,8 +49,8 @@ public class Board {
 	private User user;
 	
 	//FKではないのでDBにCOLUMNを作成しないでねって //FKではない場合LAZE戦略になるのでEAGERに変更しよう
-	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER)//FKではないことを知らせるReply.classのBOARD 変数をMappedByに代入
-	@JsonIgnoreProperties("{board}")
+	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)//FKではないことを知らせるReply.classのBOARD 変数をMappedByに代入
+	@JsonIgnoreProperties({"board"})
 	@OrderBy("id DESC")
 	private List<Reply> reply; //1つの投稿に沢山のコメントが書ける
 	 

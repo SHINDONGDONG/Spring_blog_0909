@@ -12,7 +12,7 @@
 <c:forEach var="board"  items="${board.content}">
 <div class="card m-2">
   <div class="card-body">
-    <h4 class="card-title">${board.title}</h4>
+    <h4 class="card-title">${board.title} <c:if test="${board.reply.size() > 0}">[${board.reply.size()}]</c:if> </h4>
     <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
   </div>
 </div>
